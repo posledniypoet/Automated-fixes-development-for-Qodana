@@ -1,41 +1,19 @@
-// Copyright 2000-2021 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-apply plugin: 'java'
-apply plugin: 'kotlin'
-
-compileJava {
-    sourceCompatibility '17'
-    targetCompatibility '17'
+plugins {
+    id 'java'
 }
 
-sourceSets {
-    main.java.srcDirs 'src'
-    test.java.srcDirs 'test'
+group = 'automated.fixes.developmet.main.java.task1'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
 }
 
-repositories { mavenCentral() }
 dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.assertj:assertj-core:3.23.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-jar {
-    archiveFileName = 'qodana.jar'
-    manifest {
-        attributes 'Main-Class': 'automated.fixes.developmet.main.java.task1.Main'
-    }
-}
-buildscript {
-    ext.kotlin_version = '1.9.22'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-kotlin {
-    jvmToolchain(17)
+test {
+    useJUnitPlatform()
 }
